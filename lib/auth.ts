@@ -11,7 +11,7 @@ export async function authenticateUser(request: NextRequest) {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET!);
     return decoded;
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
   }
 } 

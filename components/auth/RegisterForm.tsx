@@ -29,8 +29,12 @@ export default function RegisterForm() {
       }
 
       router.push('/login'); // Başarılı kayıt sonrası login sayfasına yönlendir
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('Bir hata oluştu'); // Fallback error message
+      }
     }
   };
 

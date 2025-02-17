@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -117,10 +118,12 @@ export default function Register() {
               />
               {formData.avatarUrl && (
                 <div className="mt-2 flex justify-center">
-                  <img
+                  <Image
                     src={formData.avatarUrl}
                     alt="Profil Önizleme"
-                    className="w-16 h-16 rounded-full object-cover"
+                    width={64}
+                    height={64}
+                    className="rounded-full object-cover w-16 h-16"
                     onError={(e) => {
                       e.currentTarget.src = 'https://ui-avatars.com/api/?background=random';
                     }}

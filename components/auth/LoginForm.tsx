@@ -33,8 +33,12 @@ export default function LoginForm() {
       localStorage.setItem('user', JSON.stringify(data.user));
 
       router.push('/todos'); // Todo sayfasına yönlendir
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('Bir hata oluştu'); // Fallback error message
+      }
     }
   };
 
