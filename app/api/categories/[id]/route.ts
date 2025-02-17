@@ -3,11 +3,7 @@ import connectDB from '@/lib/db';
 import Category from '@/models/Category';
 import { authenticateUser } from '@/lib/auth';
 
-interface Props {
-  params: { id: string }
-}
-
-export async function DELETE(request: NextRequest, { params }: Props) {
+export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     await connectDB();
     const user = await authenticateUser(request);
