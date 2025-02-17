@@ -3,7 +3,7 @@ import connectDB from '@/lib/db';
 import Category from '@/models/Category';
 import { authenticateUser } from '@/lib/auth';
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, context: { params: { id: string } }) {
   try {
     await connectDB();
     const user = await authenticateUser(request);
@@ -12,7 +12,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { id } = params;
+    const { id } = context.params;
     await Category.findOneAndDelete({ _id: id, userId: user.userId });
 
     return NextResponse.json({ success: true });
