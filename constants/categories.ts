@@ -1,0 +1,1 @@
+export const CATEGORIES = ['Genel', 'İş', 'Kişisel', 'Alışveriş', 'Sağlık']; 
