@@ -5,7 +5,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import ProfileEditor from "../profile/ProfileEditor";
 import Image from "next/image";
 
-export default function Header() {
+export default function Footer() {
   const [showProfileEditor, setShowProfileEditor] = useState(false);
   const { user, logout } = useAuth();
   const router = useRouter();
@@ -16,7 +16,7 @@ export default function Header() {
   };
 
   return (
-    <header className="w-full bg-background border-b border-borderColor border-dashed">
+    <header className="w-full bg-background border-t border-borderColor border-dashed">
       <div className="p-4 container mx-auto bg-background border-r border-l border-borderColor border-dashed">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-bold text-text">Todo App</h1>

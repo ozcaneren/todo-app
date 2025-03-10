@@ -69,19 +69,19 @@ export default function TodoItem({
 
   if (isEditing) {
     return (
-      <form onSubmit={handleSubmit} className="flex items-center justify-between p-4 bg-todo rounded-lg shadow mb-2">
+      <form onSubmit={handleSubmit} className="flex items-center justify-between p-4 bg-background rounded-lg border border-borderColor">
         <div className="flex gap-2 flex-1">
           <input
             type="text"
             value={editedTitle}
             onChange={(e) => setEditedTitle(e.target.value)}
-            className="flex-1 p-2 border border-gray-300 bg-input rounded-lg text-black"
+            className="flex-1 text-text rounded-md border border-borderColor bg-transparent px-3 py-1 text-base transition-colors"
             autoFocus
           />
           <select
             value={editedCategory}
             onChange={(e) => setEditedCategory(e.target.value)}
-            className="p-2 border border-gray-300 bg-input rounded-lg text-black"
+            className="border border-borderColor bg-background rounded-lg text-text px-2"
           >
             {categories.map((cat) => (
               <option key={cat._id} value={cat._id}>
@@ -93,14 +93,14 @@ export default function TodoItem({
         <div className="ml-2 flex gap-2">
           <button
             type="submit"
-            className="text-sm bg-button text-white px-2 py-1 rounded hover:bg-buttonHover"
+            className="text-sm bg-button text-white px-2 py-1.5 rounded hover:bg-buttonHover"
           >
             Kaydet
           </button>
           <button
             type="button"
             onClick={() => setIsEditing(false)}
-            className="text-sm bg-button text-white px-2 py-1 rounded hover:bg-buttonHover"
+            className="text-sm bg-button text-white px-2 py-1.5 rounded hover:bg-buttonHover"
           >
             İptal
           </button>
@@ -110,23 +110,23 @@ export default function TodoItem({
   }
 
   return (
-    <div className={`flex items-center justify-between p-4 bg-todo rounded-lg shadow mb-2 ${completed ? 'bg-gray-50' : ''}`}>
+    <div className={`flex items-center justify-between p-4 bg-background border border-borderColor rounded-lg mb-2 ${completed ? 'bg-button' : ''}`}>
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-3">
           <input
             type="checkbox"
             checked={completed}
             onChange={() => onToggle(id, !completed)}
-            className="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500"
+            className="w-4 h-4"
           />
-          <span className={completed ? 'line-through text-gray-500' : 'text-black'}>
+          <span className={completed ? 'line-through text-gray-500' : 'text-text'}>
             {title}
           </span>
-          <span className="text-xs px-2 py-1 bg-todoCategory rounded-full text-gray-600">
+          <span className={completed ? 'text-sm p-2 border border-dashed border-gray-600 rounded-full text-textSecondary' : 'text-sm p-2 border border-dashed border-borderColor rounded-full text-textSecondary'}>
             {getCategoryName(category)}
           </span>
         </div>
-        <span className="text-xs text-gray-500 ml-7">
+        <span className="text-xs text-textSecondary ml-7">
           {dateLabel} {formatDate(dateToShow)}
         </span>
       </div>

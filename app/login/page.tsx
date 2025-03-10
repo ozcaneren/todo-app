@@ -38,20 +38,23 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow-md">
+    <div className="flex items-center justify-center min-h-screen border-l border-r border-dashed p-4 border-borderColor container mx-auto">
+      <div className="max-w-md w-full p-8 bg-background border border-borderColor rounded-xl shadow-md">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-left text-2xl font-extrabold text-text">
             Giriş Yap
           </h2>
+          <p className="mt-2 text-left text-sm text-textSecondary">
+            Hesabınıza giriş yapmak için aşağıya e -postanızı girin
+          </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && (
             <div className="text-red-500 text-center text-sm">{error}</div>
           )}
           <div className="rounded-md shadow-sm space-y-4">
-            <div>
-              <label htmlFor="email" className="sr-only">
+            <div className="flex flex-col gap-2">
+              <label htmlFor="email" className="font-medium text-text text-sm">
                 Email
               </label>
               <input
@@ -59,14 +62,17 @@ export default function Login() {
                 name="email"
                 type="email"
                 required
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="flex-1 text-text rounded-md border border-borderColor bg-transparent px-3 py-1 text-base shadow-sm transition-colors"
                 placeholder="Email adresi"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div>
-              <label htmlFor="password" className="sr-only">
+            <div className="flex flex-col gap-2">
+              <label
+                htmlFor="password"
+                className="font-medium text-text text-sm"
+              >
                 Şifre
               </label>
               <input
@@ -74,7 +80,7 @@ export default function Login() {
                 name="password"
                 type="password"
                 required
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="flex-1 text-text rounded-md border border-borderColor bg-transparent px-3 py-1 text-base shadow-sm transition-colors"
                 placeholder="Şifre"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -85,19 +91,19 @@ export default function Login() {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-background bg-text "
             >
               Giriş Yap
             </button>
           </div>
         </form>
-        
+
         <div className="text-center mt-4">
-          <p className="text-sm text-gray-600">
-            Hesabınız yok mu?{' '}
-            <Link 
-              href="/register" 
-              className="font-medium text-indigo-600 hover:text-indigo-500"
+          <p className="text-sm text-text">
+            Hesabınız yok mu?{" "}
+            <Link
+              href="/register"
+              className="underline"
             >
               Hemen kaydolun
             </Link>

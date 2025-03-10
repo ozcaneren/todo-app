@@ -25,8 +25,8 @@ export default function CategoryManager({ categories, onCategoryAdd, onCategoryD
   };
 
   return (
-    <div className="mb-6 p-4 bg-primary rounded-lg shadow">
-      <h2 className="text-lg font-semibold mb-4 text-black">Kategoriler</h2>
+    <div className="mb-6 p-4 bg-background rounded-lg border border-borderColor">
+      <h2 className="text-lg font-semibold mb-4 text-text">Kategoriler</h2>
       
       <form onSubmit={handleSubmit} className="flex gap-2 mb-4">
         <input
@@ -34,11 +34,11 @@ export default function CategoryManager({ categories, onCategoryAdd, onCategoryD
           value={newCategory}
           onChange={(e) => setNewCategory(e.target.value)}
           placeholder="Yeni kategori ekle..."
-          className="flex-1 p-2 border border-gray-300 bg-input rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        />
+          className="flex-1 text-text rounded-md border border-borderColor bg-transparent px-3 py-1 text-base shadow-sm transition-colors"
+          />
         <button
           type="submit"
-          className="px-4 py-2 bg-button text-white rounded-lg hover:bg-buttonHover"
+          className="px-4 py-2 bg-button text-text rounded-lg hover:bg-buttonHover transition-colors"
         >
           Ekle
         </button>
@@ -48,12 +48,12 @@ export default function CategoryManager({ categories, onCategoryAdd, onCategoryD
         {categories.map((category) => (
           <div
             key={category._id}
-            className="flex items-center text-black gap-2 px-3 py-1 bg-todoCategory rounded-full"
+            className="flex items-center text-text gap-2 px-3 py-1 bg-button rounded-full"
           >
             <span>{category.name}</span>
             <button
               onClick={() => onCategoryDelete(category._id)}
-              className="text-red-600 hover:text-red-700"
+              className="text-red-500 hover:text-red-700"
             >
               ×
             </button>

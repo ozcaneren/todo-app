@@ -25,7 +25,7 @@ export default function Home() {
   }
 
   return (
-    <div className="container mx-auto px-4">
+    <div className="min-h-screen border-l border-r border-dashed p-4 border-borderColor container mx-auto">
       <TodoList />
     </div>
   );

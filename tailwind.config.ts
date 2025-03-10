@@ -9,14 +9,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "#213555",
+        background: "#09090b",
         primary: "#ebebeb",
+        text: "#fafafa",
+        textSecondary: "#a1a1aa",
+        borderColor: "#27272a",
         secondary: "#111111",
         todo: "#F5EFE7",
         todoCategory: "#D8C4B6",
         input: "#f9f9f9",
-        button: "#0466C8",
-        buttonHover: "#0456A6",
+        button: "#27272a",
+        buttonHover: "#212124",
         deneme: "#",
       },
     },

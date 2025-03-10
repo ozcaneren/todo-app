@@ -33,12 +33,12 @@ export default function AddTodo({ onAdd, categories }: AddTodoProps) {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Yeni görev ekle..."
-            className="flex-1 p-2 border border-gray-300 bg-input rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="flex-1 text-text rounded-md border border-borderColor bg-transparent px-3 py-1 text-base shadow-sm transition-colors"
           />
           <select
             value={categoryId}
             onChange={(e) => setCategoryId(e.target.value)}
-            className="p-2 border border-gray-300 bg-input rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="bg-background text-text px-2 rounded-lg border border-borderColor"
             required
           >
             <option value="">Kategori seç</option>
@@ -50,7 +50,7 @@ export default function AddTodo({ onAdd, categories }: AddTodoProps) {
           </select>
           <button
             type="submit"
-            className="px-4 py-2 bg-button text-white rounded-lg hover:bg-buttonHover focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="px-4 py-2 bg-button text-white rounded-lg hover:bg-buttonHover"
           >
             Ekle
           </button>

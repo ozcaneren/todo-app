@@ -1,10 +1,10 @@
-'use client';
-import { useState, useEffect, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/contexts/AuthContext';
-import TodoItem from './TodoItem';
-import AddTodo from './AddTodo';
-import CategoryManager from '../categories/CategoryManager';
+"use client";
+import { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
+import TodoItem from "./TodoItem";
+import AddTodo from "./AddTodo";
+import CategoryManager from "../categories/CategoryManager";
 
 interface Todo {
   _id: string;
@@ -25,97 +25,97 @@ export default function TodoList() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<string>("");
   const router = useRouter();
   const { user, loading: authLoading } = useAuth();
 
   // Filtreleme state'leri
-  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [hideCompleted, setHideCompleted] = useState<boolean>(false);
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [showStats, setShowStats] = useState<boolean>(false);
 
   const fetchCategories = useCallback(async () => {
     try {
-      const token = localStorage.getItem('token');
-      const res = await fetch('/api/categories', {
+      const token = localStorage.getItem("token");
+      const res = await fetch("/api/categories", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      if (!res.ok) throw new Error('Failed to fetch categories');
+      if (!res.ok) throw new Error("Failed to fetch categories");
 
       const data = await res.json();
       setCategories(data);
     } catch (error) {
-      console.error('Error fetching categories:', error);
+      console.error("Error fetching categories:", error);
     }
   }, []);
 
   const addCategory = async (name: string) => {
     try {
-      const token = localStorage.getItem('token');
-      const res = await fetch('/api/categories', {
-        method: 'POST',
+      const token = localStorage.getItem("token");
+      const res = await fetch("/api/categories", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ name }),
       });
 
-      if (!res.ok) throw new Error('Failed to add category');
+      if (!res.ok) throw new Error("Failed to add category");
 
       const newCategory = await res.json();
       setCategories([...categories, newCategory]);
     } catch (error) {
-      console.error('Error adding category:', error);
-      setError('Kategori eklenirken bir hata oluştu');
+      console.error("Error adding category:", error);
+      setError("Kategori eklenirken bir hata oluştu");
     }
   };
 
   const deleteCategory = async (id: string) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       const res = await fetch(`/api/categories/${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      if (!res.ok) throw new Error('Failed to delete category');
+      if (!res.ok) throw new Error("Failed to delete category");
 
-      setCategories(categories.filter(cat => cat._id !== id));
+      setCategories(categories.filter((cat) => cat._id !== id));
     } catch (error) {
-      console.error('Error deleting category:', error);
-      setError('Kategori silinirken bir hata oluştu');
+      console.error("Error deleting category:", error);
+      setError("Kategori silinirken bir hata oluştu");
     }
   };
 
   const fetchTodos = useCallback(async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) {
-        router.push('/login');
+        router.push("/login");
         return;
       }
 
-      const res = await fetch('/api/todos', {
+      const res = await fetch("/api/todos", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       if (!res.ok) {
-        throw new Error('Failed to fetch todos');
+        throw new Error("Failed to fetch todos");
       }
 
       const data = await res.json();
       setTodos(data);
     } catch (error) {
-      console.error('Error fetching todos:', error);
+      console.error("Error fetching todos:", error);
     } finally {
       setLoading(false);
     }
@@ -123,7 +123,7 @@ export default function TodoList() {
 
   useEffect(() => {
     if (!authLoading && !user) {
-      router.push('/login');
+      router.push("/login");
     } else if (user) {
       fetchTodos();
       fetchCategories();
@@ -132,102 +132,107 @@ export default function TodoList() {
 
   const addTodo = async (title: string, category: string) => {
     try {
-      const token = localStorage.getItem('token');
-      const res = await fetch('/api/todos', {
-        method: 'POST',
+      const token = localStorage.getItem("token");
+      const res = await fetch("/api/todos", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ 
-          title, 
-          category 
+        body: JSON.stringify({
+          title,
+          category,
         }),
       });
 
-      if (!res.ok) throw new Error('Failed to add todo');
+      if (!res.ok) throw new Error("Failed to add todo");
 
       const newTodo = await res.json();
       setTodos([newTodo, ...todos]);
     } catch (error) {
-      console.error('Error adding todo:', error);
-      setError('Todo eklenirken bir hata oluştu');
+      console.error("Error adding todo:", error);
+      setError("Todo eklenirken bir hata oluştu");
     }
   };
 
   const toggleTodo = async (id: string, completed: boolean) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       const res = await fetch(`/api/todos/${id}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ completed }),
       });
 
-      if (!res.ok) throw new Error('Failed to update todo');
+      if (!res.ok) throw new Error("Failed to update todo");
 
       setTodos(
-        todos.map((todo) =>
-          todo._id === id ? { ...todo, completed } : todo
-        )
+        todos.map((todo) => (todo._id === id ? { ...todo, completed } : todo))
       );
     } catch (error) {
-      console.error('Error updating todo:', error);
+      console.error("Error updating todo:", error);
     }
   };
 
   const deleteTodo = async (id: string) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       const res = await fetch(`/api/todos/${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      if (!res.ok) throw new Error('Failed to delete todo');
+      if (!res.ok) throw new Error("Failed to delete todo");
 
       setTodos(todos.filter((todo) => todo._id !== id));
     } catch (error) {
-      console.error('Error deleting todo:', error);
+      console.error("Error deleting todo:", error);
     }
   };
 
-  const editTodo = async (id: string, newTitle: string, newCategory: string) => {
+  const editTodo = async (
+    id: string,
+    newTitle: string,
+    newCategory: string
+  ) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       const res = await fetch(`/api/todos/${id}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ 
-          title: newTitle, 
+        body: JSON.stringify({
+          title: newTitle,
           category: newCategory,
-          completed: todos.find(t => t._id === id)?.completed || false
+          completed: todos.find((t) => t._id === id)?.completed || false,
         }),
       });
 
-      if (!res.ok) throw new Error('Failed to update todo');
+      if (!res.ok) throw new Error("Failed to update todo");
 
       const updatedTodo = await res.json();
-      setTodos(todos.map(todo => todo._id === id ? updatedTodo : todo));
+      setTodos(todos.map((todo) => (todo._id === id ? updatedTodo : todo)));
     } catch (error) {
-      console.error('Error updating todo:', error);
-      setError('Todo güncellenirken bir hata oluştu');
+      console.error("Error updating todo:", error);
+      setError("Todo güncellenirken bir hata oluştu");
     }
   };
 
   // Filtrelenmiş todoları hesapla
-  const filteredTodos = todos.filter(todo => {
-    const matchesCategory = !selectedCategory || todo.category === selectedCategory;
+  const filteredTodos = todos.filter((todo) => {
+    const matchesCategory =
+      !selectedCategory || todo.category === selectedCategory;
     const matchesCompletion = !hideCompleted || !todo.completed;
-    const matchesSearch = todo.title.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = todo.title
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
     return matchesCategory && matchesCompletion && matchesSearch;
   });
 
@@ -243,7 +248,7 @@ export default function TodoList() {
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="p-2 border border-gray-300 bg-input rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="px-2 border border-borderColor bg-background rounded-lg text-text"
           >
             <option value="">Tüm Kategoriler</option>
             {categories.map((cat) => (
@@ -254,7 +259,7 @@ export default function TodoList() {
           </select>
 
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 px-2 py-3.5 border border-borderColor bg-background rounded-lg text-text">
               <input
                 type="checkbox"
                 id="hideCompleted"
@@ -262,20 +267,25 @@ export default function TodoList() {
                 onChange={(e) => setHideCompleted(e.target.checked)}
                 className="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500"
               />
-              <label htmlFor="hideCompleted" className="text-sm text-gray-100 font-medium">
+              <label htmlFor="hideCompleted" className="text-text font-medium">
                 Tamamlananları Gizle
               </label>
             </div>
 
             <button
               onClick={() => setShowStats(!showStats)}
-              className={`flex items-center gap-1 px-3 py-3.5 text-sm rounded-lg transition-colors ${
-                showStats 
-                ? 'bg-white text-button hover:text-white hover:bg-button'
-                : 'bg-button text-white hover:bg-buttonHover' 
+              className={`flex items-center border border-borderColor gap-1 px-2 py-3.5 rounded-lg transition-colors ${
+                showStats
+                  ? "bg-background text-text"
+                  : "bg-background text-text"
               }`}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
                 <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
               </svg>
               İstatistikler
@@ -287,30 +297,34 @@ export default function TodoList() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Görev ara..."
-            className="flex-1 p-2 border border-gray-300 text-black bg-input rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="flex-1 text-text rounded-md border border-borderColor bg-transparent px-3 py-1 text-base shadow-sm transition-colors"
           />
         </div>
       </div>
 
       {/* İstatistikler (Koşullu Render) */}
       {showStats && (
-        <div className="mb-6 p-4 bg-primary rounded-lg shadow text-black">
+        <div className="mb-6 p-4 bg-background rounded-lg border border-borderColor text-text">
           <h3 className="text-lg font-semibold mb-2">İstatistikler</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div>
-              <p className="text-sm text-gray-600">Toplam Görev</p>
+              <p className="text-sm text-textSecondary">Toplam Görev</p>
               <p className="text-xl font-bold">{todos.length}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-600">Tamamlanan</p>
-              <p className="text-xl font-bold">{todos.filter(t => t.completed).length}</p>
+              <p className="text-sm text-textSecondary">Tamamlanan</p>
+              <p className="text-xl font-bold">
+                {todos.filter((t) => t.completed).length}
+              </p>
             </div>
             <div>
-              <p className="text-sm text-gray-600">Aktif</p>
-              <p className="text-xl font-bold">{todos.filter(t => !t.completed).length}</p>
+              <p className="text-sm text-textSecondary">Aktif</p>
+              <p className="text-xl font-bold">
+                {todos.filter((t) => !t.completed).length}
+              </p>
             </div>
             <div>
-              <p className="text-sm text-gray-600">Kategoriler</p>
+              <p className="text-sm text-textSecondary">Kategoriler</p>
               <p className="text-xl font-bold">{categories.length}</p>
             </div>
           </div>
@@ -324,35 +338,38 @@ export default function TodoList() {
         onCategoryDelete={deleteCategory}
       />
 
-      {/* Todo Ekleme Formu */}
-      <AddTodo onAdd={addTodo} categories={categories} />
+      <div className="border border-borderColor rounded-lg p-4">
 
-      {/* Todo Listesi */}
-      {loading ? (
-        <div className="text-center">Yükleniyor...</div>
-      ) : error ? (
-        <div className="text-red-500 text-center">{error}</div>
-      ) : filteredTodos.length === 0 ? (
-        <div className="text-center text-gray-500">Görev bulunamadı</div>
-      ) : (
-        <div className="space-y-4">
-          {filteredTodos.map((todo) => (
-            <TodoItem
-              key={todo._id}
-              id={todo._id}
-              title={todo.title}
-              completed={todo.completed}
-              category={todo.category}
-              categories={categories}
-              createdAt={todo.createdAt}
-              updatedAt={todo.updatedAt}
-              onDelete={deleteTodo}
-              onToggle={toggleTodo}
-              onEdit={editTodo}
-            />
-          ))}
-        </div>
-      )}
+        {/* Todo Ekleme Formu */}
+        <AddTodo onAdd={addTodo} categories={categories} />
+
+        {/* Todo Listesi */}
+        {loading ? (
+          <div className="text-center">Yükleniyor...</div>
+        ) : error ? (
+          <div className="text-red-500 text-center">{error}</div>
+        ) : filteredTodos.length === 0 ? (
+          <div className="text-center text-gray-500">Görev bulunamadı</div>
+        ) : (
+          <div className="space-y-4">
+            {filteredTodos.map((todo) => (
+              <TodoItem
+                key={todo._id}
+                id={todo._id}
+                title={todo.title}
+                completed={todo.completed}
+                category={todo.category}
+                categories={categories}
+                createdAt={todo.createdAt}
+                updatedAt={todo.updatedAt}
+                onDelete={deleteTodo}
+                onToggle={toggleTodo}
+                onEdit={editTodo}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

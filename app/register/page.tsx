@@ -1,26 +1,26 @@
-'use client';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import Image from 'next/image';
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function Register() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    avatarUrl: ''
+    name: "",
+    email: "",
+    password: "",
+    avatarUrl: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/auth/register', {
-        method: 'POST',
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -28,30 +28,33 @@ export default function Register() {
       const data = await res.json();
 
       if (res.ok) {
-        router.push('/login');
+        router.push("/login");
       } else {
-        setError(data.error || 'Kayıt başarısız');
+        setError(data.error || "Kayıt başarısız");
       }
     } catch {
-      setError('Bir hata oluştu');
+      setError("Bir hata oluştu");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow-md">
+    <div className="flex items-center justify-center min-h-screen border-l border-r border-dashed p-4 border-borderColor container mx-auto">
+      <div className="max-w-md w-full p-8 bg-background border border-borderColor rounded-xl shadow-md">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-left text-2xl font-extrabold text-text">
             Hesap Oluştur
           </h2>
+          <p className="mt-2 text-left text-sm text-textSecondary">
+            Hesabınızı oluşturmak için aşağıya bilgilerinizi girin
+          </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && (
             <div className="text-red-500 text-center text-sm">{error}</div>
           )}
           <div className="rounded-md shadow-sm space-y-4">
-            <div>
-              <label htmlFor="name" className="sr-only">
+            <div className="flex flex-col gap-2">
+              <label htmlFor="name" className="font-medium text-text text-sm">
                 İsim
               </label>
               <input
@@ -59,7 +62,7 @@ export default function Register() {
                 name="name"
                 type="text"
                 required
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="flex-1 text-text rounded-md border border-borderColor bg-transparent px-3 py-1 text-base shadow-sm transition-colors"
                 placeholder="İsim"
                 value={formData.name}
                 onChange={(e) =>
@@ -67,8 +70,8 @@ export default function Register() {
                 }
               />
             </div>
-            <div>
-              <label htmlFor="email" className="sr-only">
+            <div className="flex flex-col gap-2">
+              <label htmlFor="email" className="font-medium text-text text-sm">
                 Email
               </label>
               <input
@@ -76,7 +79,7 @@ export default function Register() {
                 name="email"
                 type="email"
                 required
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="flex-1 text-text rounded-md border border-borderColor bg-transparent px-3 py-1 text-base shadow-sm transition-colors"
                 placeholder="Email adresi"
                 value={formData.email}
                 onChange={(e) =>
@@ -84,8 +87,11 @@ export default function Register() {
                 }
               />
             </div>
-            <div>
-              <label htmlFor="password" className="sr-only">
+            <div className="flex flex-col gap-2">
+              <label
+                htmlFor="password"
+                className="font-medium text-text text-sm"
+              >
                 Şifre
               </label>
               <input
@@ -93,7 +99,7 @@ export default function Register() {
                 name="password"
                 type="password"
                 required
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="flex-1 text-text rounded-md border border-borderColor bg-transparent px-3 py-1 text-base shadow-sm transition-colors"
                 placeholder="Şifre"
                 value={formData.password}
                 onChange={(e) =>
@@ -101,15 +107,18 @@ export default function Register() {
                 }
               />
             </div>
-            <div>
-              <label htmlFor="avatarUrl" className="sr-only">
+            <div className="flex flex-col gap-2">
+              <label
+                htmlFor="avatarUrl"
+                className="font-medium text-text text-sm"
+              >
                 Profil Fotoğrafı URL
               </label>
               <input
                 id="avatarUrl"
                 name="avatarUrl"
                 type="url"
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="flex-1 text-text rounded-md border border-borderColor bg-transparent px-3 py-1 text-base shadow-sm transition-colors"
                 placeholder="Profil Fotoğrafı URL (isteğe bağlı)"
                 value={formData.avatarUrl}
                 onChange={(e) =>
@@ -125,7 +134,8 @@ export default function Register() {
                     height={64}
                     className="rounded-full object-cover w-16 h-16"
                     onError={(e) => {
-                      e.currentTarget.src = 'https://ui-avatars.com/api/?background=random';
+                      e.currentTarget.src =
+                        "https://ui-avatars.com/api/?background=random";
                     }}
                   />
                 </div>
@@ -136,20 +146,17 @@ export default function Register() {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-background bg-text "
             >
               Kayıt Ol
             </button>
           </div>
         </form>
-        
+
         <div className="text-center mt-4">
-          <p className="text-sm text-gray-600">
-            Zaten hesabınız var mı?{' '}
-            <Link 
-              href="/login" 
-              className="font-medium text-indigo-600 hover:text-indigo-500"
-            >
+          <p className="text-sm text-text">
+            Zaten hesabınız var mı?{" "}
+            <Link href="/login" className="underline">
               Giriş yapın
             </Link>
           </p>
@@ -157,4 +164,4 @@ export default function Register() {
       </div>
     </div>
   );
-} 
+}
