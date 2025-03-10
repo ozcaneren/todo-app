@@ -1,20 +1,12 @@
-import { NextRequest } from 'next/server';
 import connectDB from '@/lib/db';
 import Todo from '@/models/Todo';
 import { authenticateUser } from '@/lib/auth';
 
-type Props = {
-  params: {
-    id: string;
-  };
-};
-
-// Todo güncelle
-export async function PUT(req: NextRequest, { params }: Props) {
+export async function PUT(req, { params }) {
   try {
     await connectDB();
     const user = await authenticateUser(req);
-    const { id } = await params;
+    const { id } = params;
 
     if (!user) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });
@@ -30,12 +22,11 @@ export async function PUT(req: NextRequest, { params }: Props) {
   }
 }
 
-// Todo sil
-export async function DELETE(req: NextRequest, { params }: Props) {
+export async function DELETE(req, { params }) {
   try {
     await connectDB();
     const user = await authenticateUser(req);
-    const { id } = await params;
+    const { id } = params;
 
     if (!user) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 });

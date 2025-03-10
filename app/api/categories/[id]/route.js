@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import connectDB from '@/lib/db';
 import Category from '@/models/Category';
 import { authenticateUser } from '@/lib/auth';
 
-export async function DELETE(request: NextRequest, context: { params: { id: string } }) {
+export async function DELETE(request, { params }) {
   try {
     await connectDB();
     const user = await authenticateUser(request);
@@ -12,7 +12,7 @@ export async function DELETE(request: NextRequest, context: { params: { id: stri
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { id } = context.params;
+    const { id } = params;
     await Category.findOneAndDelete({ _id: id, userId: user.userId });
 
     return NextResponse.json({ success: true });
@@ -20,4 +20,4 @@ export async function DELETE(request: NextRequest, context: { params: { id: stri
     console.error('Error in DELETE /api/categories:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
-} 
+}
