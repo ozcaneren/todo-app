@@ -21,9 +21,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          <div className="min-h-screen h-full w-full bg-background text-text">
+          <div className="flex flex-col justify-between min-h-screen h-full w-full bg-background text-text">
             <Header />
-            <main>{children}</main>
+            <main className="h-full flex-1 flex border-l border-r border-dashed border-borderColor container mx-auto">
+              {children}
+            </main>
             <Footer />
           </div>
         </AuthProvider>

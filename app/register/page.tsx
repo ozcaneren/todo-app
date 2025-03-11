@@ -38,7 +38,7 @@ export default function Register() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen border-l border-r border-dashed p-4 border-borderColor container mx-auto">
+    <div className="flex-1 flex justify-center items-center container mx-auto">
       <div className="max-w-md w-full p-8 bg-background border border-borderColor rounded-xl shadow-md">
         <div>
           <h2 className="mt-6 text-left text-2xl font-extrabold text-text">

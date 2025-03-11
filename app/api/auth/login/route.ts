@@ -6,6 +6,22 @@ import User from '@/models/User';
 
 export async function POST(request: NextRequest) {
   try {
+    // Gelen token'ı kontrol et
+    const authHeader = request.headers.get('authorization');
+    if (authHeader?.startsWith('Bearer ')) {
+      const token = authHeader.substring(7);
+      try {
+        // Token geçerliyse kullanıcı zaten giriş yapmış demektir
+        jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret');
+        return Response.json(
+          { message: 'Already logged in', redirect: '/todos' },
+          { status: 200 }
+        );
+      } catch {
+        // Token geçersizse normal login işlemine devam et
+      }
+    }
+
     await connectDB();
     
     const { email, password } = await request.json();

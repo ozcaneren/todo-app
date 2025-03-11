@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import Link from "next/link";
@@ -27,7 +28,7 @@ export default function Login() {
       if (res.ok) {
         localStorage.setItem("token", data.token);
         setUser(data.user);
-        router.push("/");
+        router.push("/todos");
       } else {
         setError(data.error || "Giriş başarısız");
       }
@@ -37,8 +38,15 @@ export default function Login() {
     }
   };
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      router.push("/todos");
+    }
+  }, [router]);
+
   return (
-    <div className="flex items-center justify-center min-h-screen border-l border-r border-dashed p-4 border-borderColor container mx-auto">
+    <div className="flex-1 flex justify-center items-center container mx-auto">
       <div className="max-w-md w-full p-8 bg-background border border-borderColor rounded-xl shadow-md">
         <div>
           <h2 className="mt-6 text-left text-2xl font-extrabold text-text">
