@@ -7,8 +7,8 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <div className="flex justify-center items-center mx-auto">
-      <div className="w-full flex flex-col gap-4 justify-center items-center">
+    <div className="flex justify-center items-center mx-auto min-h-screen w-full max-w-7xl px-4">
+      <div className="w-full flex flex-col gap-4 justify-center items-center py-8">
         <div className="flex flex-col justify-center items-center gap-2 mt-2">
           <h1 className="text-4xl font-bold text-text">To Do List</h1>
           <p className="text-textSecondary mt-1 text-center">
@@ -23,15 +23,27 @@ export default function Home() {
             </button>
             <div>Dahasini Ogren {"->"}</div>
           </div>
+          <div className="flex flex-col items-center gap-4 mt-2">
+            <h1 className="">
+              Denemek icin asagidaki bilgileri kullanabilirsiniz.
+            </h1>
+            <div className="flex flex-row gap-4">
+              <span className="text-sm">Email: demo@gmail.com</span>
+              <span className="text-sm">Sifre: demo123</span>
+            </div>
+          </div>
         </div>
-        <div className="mt-4 p-2 border border-borderColor rounded-lg">
-          <Image
-            src="/landing2.png"
-            alt="To do list"
-            width={1200}
-            height={1000}
-            className="rounded-lg"
-          />
+        <div className="w-full mt-4 p-2 sm:p-4 border border-borderColor rounded-lg overflow-hidden">
+          <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px]">
+            <Image
+              src="/landing2.png"
+              alt="To do list"
+              fill
+              priority
+              className="rounded-lg object-contain"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
+            />
+          </div>
         </div>
       </div>
     </div>

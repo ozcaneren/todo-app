@@ -46,7 +46,7 @@ export default function Login() {
   }, [router]);
 
   return (
-    <div className="flex-1 flex justify-center items-center container mx-auto">
+    <div className="flex-1 flex justify-center items-center container mx-auto px-4 md:px-0">
       <div className="max-w-md w-full p-8 bg-background border border-borderColor rounded-xl shadow-md">
         <div>
           <h2 className="mt-6 text-left text-2xl font-extrabold text-text">

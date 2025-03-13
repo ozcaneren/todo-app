@@ -19,7 +19,6 @@ export default function ProfileEditor({ onClose }: ProfileEditorProps) {
     setLoading(true);
     setError('');
 
-    // URL kontrolü
     if (avatarUrl) {
       try {
         const response = await fetch(avatarUrl, { method: 'HEAD' });
@@ -67,7 +66,6 @@ export default function ProfileEditor({ onClose }: ProfileEditorProps) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="flex gap-8 max-w-4xl w-full">
-        {/* Form Box */}
         <div className="bg-white rounded-lg p-8 w-1/2 shadow-lg">
           <h2 className="text-2xl text-black font-semibold mb-6">Profili Düzenle</h2>
           
@@ -122,7 +120,6 @@ export default function ProfileEditor({ onClose }: ProfileEditorProps) {
           </form>
         </div>
 
-        {/* Preview Box */}
         <div className="bg-white rounded-lg p-8 w-1/2 shadow-lg flex flex-col items-center justify-center">
           <h2 className="text-2xl text-black font-semibold mb-6">Önizleme</h2>
           <Image
